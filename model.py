@@ -112,8 +112,12 @@ def build_instruction_examples():
         }
     ]
 
-# Step 10 - format_instruction_example (not yet solved)
-# TODO: implement
+# Step 10 - format_instruction_example
+def format_instruction_example(example):
+    return (
+        f"### Instruction:\n{example['instruction']}\n\n"
+        f"### Response:\n{example['response']}"
+    )
 
 # Step 11 - format_all_examples (not yet solved)
 # TODO: implement
