@@ -87,8 +87,30 @@ def trainable_fraction(trainable_count, total_count):
     # TODO: return the fraction of parameters that are trainable.
     return float(trainable_count/total_count)
 
-# Step 9 - build_instruction_examples (not yet solved)
-# TODO: implement
+# Step 9 - build_instruction_examples
+def build_instruction_examples():
+    return [
+        {
+            "instruction": "What is machine learning?",
+            "response": "Machine learning enables computers to learn patterns from data and make predictions."
+        },
+        {
+            "instruction": "Explain overfitting in simple terms.",
+            "response": "Overfitting happens when a model learns the training data too closely and performs poorly on unseen data."
+        },
+        {
+            "instruction": "What is Python used for?",
+            "response": "Python is used for web development, automation, data analysis, machine learning, and many other tasks."
+        },
+        {
+            "instruction": "What is the purpose of LoRA?",
+            "response": "LoRA fine-tunes a model efficiently by training small low-rank adapter matrices instead of updating all the original weights."
+        },
+        {
+            "instruction": "How can I reduce overfitting?",
+            "response": "You can reduce overfitting using regularization, data augmentation, simpler models, dropout, or more training data."
+        }
+    ]
 
 # Step 10 - format_instruction_example (not yet solved)
 # TODO: implement
