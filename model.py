@@ -149,28 +149,24 @@ def count_tokens(input_ids):
     return int(len(input_ids))
 
 # Step 15 - build_training_arguments
-import torch
 from transformers import TrainingArguments
-
 def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=2e-4):
     """Return featherweight TrainingArguments for the SFT run."""
     # TODO: build TrainingArguments with batch size 1, given max_steps, given lr, bf16 or fp16.
-    
-    bf16_supported=(
-        torch.cuda.is_available()
-        and torch.cuda.is_bf16_supported()
-    )
+    use_bf16 = torch.cuda.is_bf16_supported()
 
     return TrainingArguments(
-        output_dir = output_dir,
+        output_dir=output_dir,
         per_device_train_batch_size=1,
         gradient_accumulation_steps=1,
         max_steps=max_steps,
         learning_rate=learning_rate,
+        bf16=use_bf16,
+        fp16=not use_bf16,
         logging_steps=1,
-        optim="adamw_8bit",
-        bf16=bf16_supported,
-        fp16=not bf16_supported,
+        optim='adamw_8bit',
+        save_strategy='no',
+        report_to='none'
     )
 
 # Step 16 - build_sft_trainer
@@ -190,12 +186,11 @@ def build_sft_trainer(model, tokenizer, dataset, training_args, max_seq_length=2
     )
 
 # Step 17 - run_sft_training
-import math
 def run_sft_training(trainer):
     """Run a few SFT steps and return the final training loss as a float."""
     # TODO: drive the trainer through its short optimization run and return the final loss
-    result = trainer.train()
-    return float(result.training_loss)
+    train_output = trainer.train()
+    return float(train_output.training_loss)
 
 # Step 18 - switch_to_inference_mode (not yet solved)
 # TODO: implement
